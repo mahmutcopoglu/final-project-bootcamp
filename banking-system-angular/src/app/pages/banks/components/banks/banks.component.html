@@ -1,0 +1,46 @@
+
+<div *ngIf="isCreateBank" class="col-12 flex justify-content-end">
+    <button pButton pRipple label="Yeni Banka" icon="pi pi-plus-circle" class="w-auto" (click)="newBank()"></button>
+</div>
+<p-table #dt [value]="banks" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+    [rows]="10" responsiveLayout="scroll"
+    [paginator]="true">
+
+    <ng-template pTemplate="header">
+        <tr>
+            
+            <th pSortableColumn="id">
+                <div class="flex justify-content-between align-items-center">
+                 Id
+                    <p-sortIcon field="id"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="name">
+                <div class="flex justify-content-between align-items-center">
+                 Banka Adı
+                    <p-sortIcon field="name"></p-sortIcon>
+                </div>
+            </th>
+            
+            
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bank>
+        <tr class="p-selectable-row">
+            
+            <td>
+                {{bank.id}}
+            </td>
+            <td>
+                {{bank.name}}
+            </td>
+            
+          
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">Banka bulunmamaktadır.</td>
+        </tr>
+    </ng-template>
+</p-table>

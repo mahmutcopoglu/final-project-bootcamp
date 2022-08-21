@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.mahmutcopoglu.bankingsystemproject.repository.AccountRepository">
+
+    <insert id="saveAccount" parameterType="Account" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO account(user,bank,number,type,balance,creation_date,last_update_date,is_deleted)
+        VALUES(#{user.id}, #{bank.id}, #{number}, #{type}, #{balance}, #{creation_date}, #{last_update_date}, #{deleted})
+    </insert>
+
+    <select id="findById" resultType="Account">
+        SELECT * FROM account WHERE id = #{id}
+    </select>
+
+    <update id="removeAccount" parameterType="int" >
+        UPDATE account SET is_deleted = true WHERE id = #{id}
+    </update>
+
+    <update id="updateBalance" parameterType="Account" >
+        UPDATE account SET balance = #{balance}, last_update_date = #{date}  WHERE id = #{id}
+    </update>
+
+    <update id="transferMoney" parameterType="Account" >
+        UPDATE account SET balance = #{balance}, last_update_date = #{date} WHERE id = #{accountId}
+    </update>
+
+    <select id="getAccount" resultMap="accountDetailResultMap" >
+        SELECT *, account.id as account_id, user.id as user_id, bank.id as bank_id
+        FROM account
+        INNER JOIN user ON user.id = account.user
+        INNER JOIN bank ON bank.id = account.bank WHERE account.id = #{id}
+    </select>
+
+    <resultMap type="Account" id="accountDetailResultMap" autoMapping = "true">
+        <id property="id" column="account_id"/>
+        <association property="user" autoMapping = "true">
+            <id property="id" column="user_id"/>
+        </association>
+        <association property="bank" autoMapping = "true">
+            <id property="id" column="bank_id"/>
+        </association>
+    </resultMap>
+
+    <select id="findByUserId" resultType="Account" resultMap="userAccounts">
+        SELECT *, account.id as account_id, bank.id as bank_id, user.id as user_id
+        FROM account
+        INNER JOIN bank ON bank.id = account.bank
+        INNER JOIN user ON user.id = account.user WHERE account.user = #{userId} AND account.is_deleted = false
+    </select>
+
+    <resultMap type="Account" id="userAccounts" autoMapping = "true">
+        <association property="bank" autoMapping = "true">
+            <id property="id" column="bank_id"/>
+        </association>
+        <association property="user" autoMapping = "true">
+            <id property="id" column="user_id"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllAccounts" resultType="Account" resultMap="allAccounts">
+        SELECT *, account.id as account_id, bank.id as bank_id, user.id as user_id
+        FROM account
+        INNER JOIN bank ON bank.id = account.bank
+        INNER JOIN user ON user.id = account.user WHERE account.is_deleted = false
+    </select>
+    <resultMap type="Account" id="allAccounts" autoMapping = "true">
+        <association property="bank" autoMapping = "true">
+            <id property="id" column="bank_id"/>
+        </association>
+        <association property="user" autoMapping = "true">
+            <id property="id" column="user_id"/>
+        </association>
+    </resultMap>
+
+
+
+
+</mapper>

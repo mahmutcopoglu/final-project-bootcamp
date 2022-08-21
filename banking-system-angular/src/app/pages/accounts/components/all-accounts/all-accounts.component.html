@@ -1,0 +1,124 @@
+<p-toast position="top-center"></p-toast>
+<p-table #dt [value]="accounts" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+    [rows]="10" responsiveLayout="scroll"
+    [paginator]="true">
+
+    <ng-template pTemplate="header">
+        <tr>
+            
+            <th pSortableColumn="id">
+                <div class="flex justify-content-between align-items-center">
+                 Id
+                    <p-sortIcon field="id"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="number">
+                <div class="flex justify-content-between align-items-center">
+                  Hesap Numarası
+                    <p-sortIcon field="number"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="creation_date">
+                <div class="flex justify-content-between align-items-center">
+                    Oluşturulma Tarihi
+                    <p-sortIcon field="creation_date"></p-sortIcon>
+                    
+                </div>
+            </th>
+            <th pSortableColumn="last_update_date">
+                <div class="flex justify-content-between align-items-center">
+                    Son İşlem Tarihi
+                    <p-sortIcon field="last_update_date"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="type">
+                <div class="flex justify-content-between align-items-center">
+                    Hesap Türü
+                    <p-sortIcon field="type"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="balance">
+                <div class="flex justify-content-between align-items-center">
+                    Bakiye
+                    <p-sortIcon field="balance"></p-sortIcon>
+                    
+                </div>
+            </th>
+            <th pSortableColumn="deleted">
+                <div class="flex justify-content-between align-items-center">
+                   Silinme Durumu
+                    <p-sortIcon field="deleted"></p-sortIcon>
+                    
+                </div>
+            </th>
+            <th pSortableColumn="bank.name">
+                <div class="flex justify-content-between align-items-center">
+                   Banka
+                    <p-sortIcon field="bank.name"></p-sortIcon>
+                    
+                </div>
+            </th>
+            <th pSortableColumn="user.username">
+                <div class="flex justify-content-between align-items-center">
+                   Kullanıcı
+                    <p-sortIcon field="user.username"></p-sortIcon>
+                    
+                </div>
+            </th>
+            <th style="width: 8rem"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-account>
+        <tr class="p-selectable-row">
+            
+            <td>
+                {{account.id}}
+            </td>
+            <td>
+                {{account.number}}
+            </td>
+            <td>
+                <span class="image-text">{{account.creation_date | date: 'dd.MM.yyyy HH:mm'}}</span>
+            </td>
+            <td>
+                <span class="image-text">{{account.last_update_date | date: 'dd.MM.yyyy HH:mm'}}</span>
+            </td>
+            <td>
+                {{account.type}}
+            </td>
+            <td *ngIf="account.type=='TRY'">
+                {{account.balance | currency:"TRY":'₺'}}
+            </td>
+            <td *ngIf="account.type=='USD'">
+                {{account.balance | currency}}
+            </td>
+            <td *ngIf="account.type=='ALTIN'">
+                {{account.balance}}
+            </td>
+            <td *ngIf="account.deleted">
+                <p-tag styleClass="mr-2" icon="pi pi-check" severity="success" value="Aktif"></p-tag>
+            </td>
+            <td *ngIf="!account.deleted">
+                <p-tag icon="pi pi-times" severity="danger" value="Pasif"></p-tag>
+            </td>
+            <td>
+              {{account.bank.name}}
+                
+            </td>
+            <td>
+                {{account.user.username}}
+                  
+            </td>
+            <td style="text-align: center">
+                <button pButton type="button" class="p-button-danger" icon="pi pi-times" (click)="removeAccount(account)"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="10">Sistemde kayıtlı hesap bulunmamaktadır.</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text" acceptLabel="Evet" rejectLabel="Hayır"></p-confirmDialog>

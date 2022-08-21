@@ -1,0 +1,44 @@
+
+<div class="bg-indigo-500 py-3 px-6 shadow-2 flex align-items-center justify-content-between relative lg:static">
+    <img src="assets/images/blocks/logos/hyper-light.svg" alt="Image" (click)="routeHome()" height="50" class="cursor-pointer">
+    <a pRipple class="cursor-pointer block lg:hidden text-white" pStyleClass="@next" enterClass="hidden" leaveToClass="hidden" [hideOnOutsideClick]="true">
+        <i class="pi pi-bars text-4xl"></i>
+    </a>
+    <div class="align-items-center flex-grow-1 lg:justify-content-end hidden lg:flex absolute lg:static w-full bg-indigo-500 left-0 top-100 px-6 lg:px-0 z-3 shadow-2 lg:shadow-none">
+        <ul class="list-none p-0 m-0 flex lg:align-items-center text-white select-none flex-column lg:flex-row cursor-pointer">
+           
+            <li (click)="routeAccounts()">
+                <a pRipple class="flex px-0 lg:px-5 py-3 hover:text-indigo-100 font-medium transition-colors transition-duration-150">
+                    <span>Hesaplarım</span>
+                </a>
+            </li>
+             <li *ngIf="removeAccount" (click)="routeAllAccounts()">
+                <a pRipple class="flex px-0 lg:px-5 py-3 hover:text-indigo-100 font-medium transition-colors transition-duration-150">
+                    <span>Tüm Hesaplar</span>
+                </a>
+            </li>
+            <li (click)="routeBanks()">
+                <a pRipple class="flex px-0 lg:px-5 py-3 hover:text-indigo-100 font-medium transition-colors transition-duration-150">
+                    <span>Bankalar</span>
+                </a>
+            </li>
+             <li *ngIf="activateDeactivateUser" (click)="routeUsers()">
+                <a pRipple class="flex px-0 lg:px-5 py-3 hover:text-indigo-100 font-medium transition-colors transition-duration-150">
+                    <span>Kullanıcılar</span>
+                </a>
+            </li>
+             <li (click)="routeProfile()">
+                <a pRipple class="flex px-0 lg:px-5 py-3 hover:text-indigo-100 font-medium transition-colors transition-duration-150">
+                    
+                    <span><i class="pi pi-user mr-2"></i>{{username}}</span>
+                  
+                    
+                </a>
+            </li>
+        </ul>
+        
+        <div class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0 lg:ml-5">
+            <button pButton pRipple label="Çıkış Yap" icon="pi pi-sign-out" class="p-button font-bold" (click)="doLogout()"></button>
+        </div>
+    </div>
+</div>

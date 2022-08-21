@@ -1,0 +1,98 @@
+
+<p-toast position="top-center"></p-toast>
+<div class="col-12 flex justify-content-end">
+        <button pButton pRipple label="Geri Dön" icon="pi pi-chevron-left" class="w-auto" (click)="returnHome()"></button>
+    </div>
+<div class="surface-card p-4 shadow-2 border-round">
+<div class="font-medium text-3xl text-900 mb-3">#{{account.number}} numaralı hesabınız</div>
+<div class="text-500 mb-5">Hesap Detayları</div>
+<div class="grid grid-nogutter border-top-1 surface-border pt-2">
+ <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Id</div>
+        <div class="text-900">{{account.id}}</div>
+    </div>
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Hesap Numarası</div>
+        <div class="text-900">{{account.number}}</div>
+    </div>
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Banka</div>
+        <div class="text-900">{{account.bank.name}}</div>
+    </div>
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Oluşturma Tarihi</div>
+        <div class="text-900">{{account.creation_date | date: 'dd.MM.yyyy HH:mm' }}</div>
+    </div>
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Son İşlem Tarihi</div>
+        <div class="text-900">{{account.last_update_date | date: 'dd.MM.yyyy HH:mm' }}</div>
+    </div>
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Hesap Türü</div>
+        <div class="text-900">{{account.type}}</div>
+    </div>
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Bakiye</div>
+        <div *ngIf="account.type=='TRY'" class="text-900 font-bold">{{account.balance| currency:"TRY":'₺' }}</div>
+         <div *ngIf="account.type=='USD'" class="text-900 font-bold">{{account.balance| currency}}</div>
+    </div>
+    
+    <div class="col-12 p-3">
+        <div class="text-500 font-medium mb-3">İşlemler</div>
+        <div class="flex md:align-items-center md:justify-content-between border-top-1 surface-border p-3 flex-column md:flex-row">
+            <div class="flex align-items-center">
+                <span class="block pi pi-wallet mr-2"></span>
+                <span class="text-900">Para Yükleme</span>
+            </div>
+            <button pButton pRipple icon="pi pi-upload" label="Yükle" class="w-2 p-button-success mt-2 md:mt-0" (click)="addAmount=true"></button>
+        </div>
+        <div class="flex md:align-items-center md:justify-content-between border-top-1 border-bottom-1 surface-border p-3 flex-column md:flex-row">
+            <div class="flex align-items-center">
+                <span class="block pi pi-money-bill mr-2"></span>
+                <span class="text-900">Para Transferi</span>
+            </div>
+            <button pButton pRipple icon="pi pi-download" label="Transfer" class="w-2 p-button-warning mt-2 md:mt-0" (click)="transferMoney=true"></button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<p-dialog header="Hesaba Para Yükle" [(visible)]="addAmount" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="grid p-fluid flex justify-content-center">
+        <div class="field col-12 md:col-12">
+            <label for="amount">Miktar</label>
+            <p-inputNumber inputId="amount" [(ngModel)]="amount">
+            </p-inputNumber>
+        </div>
+    </div>
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="add()" label="Yükle" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+
+
+<p-dialog header="Havale/EFT" [(visible)]="transferMoney" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="grid p-fluid flex justify-content-center">
+        <div class="field col-12 md:col-12">
+            <label for="transferAmount">Miktar</label>
+            <p-inputNumber inputId="transferAmount" [(ngModel)]="transferAmount">
+            </p-inputNumber>
+        </div>
+        <div class="field col-12 md:col-12">
+            <label for="receiverAccountId">Alıcı Hesap</label>
+            <p-inputNumber inputId="receiverAccountId" [(ngModel)]="receiverAccountId">
+            </p-inputNumber>
+        </div>
+    </div>
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="transfer()" label="Gönder" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+
+
+

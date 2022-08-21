@@ -1,0 +1,183 @@
+
+
+<p-toast position="top-center"></p-toast>
+<div class="col-12 flex justify-content-end px-4  md:px-6 lg:px-8">
+    <button pButton pRipple label="Geri Dön" icon="pi pi-chevron-left" class="w-auto" (click)="returnUsers()"></button>
+</div>
+<div class="surface-ground px-4  md:px-6 lg:px-8">
+    <div class="surface-card p-4 shadow-2 border-round p-fluid">
+        <div class="grid formgrid p-fluid">
+            <div class="field mb-4 col-12">
+                <label for="id" class="font-medium text-900">Id</label>
+                <input id="id" type="text" pInputText [(ngModel)]="user.id" [disabled]="true">
+            </div>
+            <div class="field mb-4 col-12">
+                <label for="username" class="font-medium text-900">Kullanıcı Adı</label>
+                <input id="username" type="text" pInputText [(ngModel)]="user.username" [disabled]="true">
+            </div>
+            <div class="field mb-4 col-12">
+                <label for="email" class="font-medium text-900">Email</label>
+                <input id="email" type="text" pInputText [(ngModel)]="user.email" [disabled]="true">
+            </div>
+            <div class="field mb-4 col-12">
+                <label for="enabled" class="font-medium text-900">Aktiflik</label>
+                <div class="flex align-items-center">
+                    <p-inputSwitch inputId="enabled" [(ngModel)]="user.enabled"></p-inputSwitch>
+                </div>
+            </div>
+
+
+        </div>
+        <p-table #dt [value]="userAccounts" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+    [rows]="5" responsiveLayout="scroll"
+    [paginator]="true">
+    <ng-template pTemplate="caption">
+        <div class="table-header">
+            Kullanıcı Hesapları
+          
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            
+            <th pSortableColumn="id">
+                <div class="flex justify-content-between align-items-center">
+                 Id
+                    <p-sortIcon field="id"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="number">
+                <div class="flex justify-content-between align-items-center">
+                  Hesap Numarası
+                    <p-sortIcon field="number"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="creation_date">
+                <div class="flex justify-content-between align-items-center">
+                    Oluşturulma Tarihi
+                    <p-sortIcon field="creation_date"></p-sortIcon>
+                    
+                </div>
+            </th>
+            <th pSortableColumn="last_update_date">
+                <div class="flex justify-content-between align-items-center">
+                    Son İşlem Tarihi
+                    <p-sortIcon field="last_update_date"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="type">
+                <div class="flex justify-content-between align-items-center">
+                    Hesap Türü
+                    <p-sortIcon field="type"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="balance">
+                <div class="flex justify-content-between align-items-center">
+                    Bakiye
+                    <p-sortIcon field="balance"></p-sortIcon>
+                    
+                </div>
+            </th>
+            <th pSortableColumn="deleted">
+                <div class="flex justify-content-between align-items-center">
+                   Silinme Durumu
+                    <p-sortIcon field="deleted"></p-sortIcon>
+                    
+                </div>
+            </th>
+            <th pSortableColumn="bank.name">
+                <div class="flex justify-content-between align-items-center">
+                   Banka
+                    <p-sortIcon field="bank.name"></p-sortIcon>
+                    
+                </div>
+            </th>
+           
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-account>
+        <tr class="p-selectable-row">
+            
+            <td>
+                {{account.id}}
+            </td>
+            <td>
+                {{account.number}}
+            </td>
+            <td>
+                <span class="image-text">{{account.creation_date | date: 'dd.MM.yyyy HH:mm'}}</span>
+            </td>
+            <td>
+                <span class="image-text">{{account.last_update_date | date: 'dd.MM.yyyy HH:mm'}}</span>
+            </td>
+            <td>
+                {{account.type}}
+            </td>
+            <td>
+                {{account.balance}}
+            </td>
+            <td *ngIf="account.deleted">
+                <p-tag styleClass="mr-2" icon="pi pi-check" severity="success" value="Aktif"></p-tag>
+            </td>
+            <td *ngIf="!account.deleted">
+                <p-tag icon="pi pi-times" severity="danger" value="Pasif"></p-tag>
+            </td>
+            <td>
+              {{account.bank.name}}
+                
+            </td>
+            
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">Kullanıcının hesabı bulunmamaktadır.</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-table #dt [value]="user.authorities" dataKey="id" styleClass="p-datatable-customers mb-5" [rowHover]="true"
+[rows]="10" responsiveLayout="scroll">
+<ng-template pTemplate="caption">
+    <div class="table-header">
+        Kullanıcı Yetkileri
+      
+    </div>
+</ng-template>
+
+<ng-template pTemplate="header">
+    <tr>
+        
+        <th>
+            <div class="flex justify-content-between align-items-center">
+             Yetki Tanım
+               
+            </div>
+        </th>
+       
+       
+    </tr>
+</ng-template>
+<ng-template pTemplate="body" let-authority>
+    <tr class="p-selectable-row">
+        
+        <td>
+            {{authority}}
+        </td>
+        
+        
+    </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+    <tr>
+        <td colspan="8">Kullanıcıya tanımlı yetki bulunmamaktadır.</td>
+    </tr>
+</ng-template>
+</p-table>
+        <button pButton pRipple label="Kaydet" icon="pi pi-file" class="w-auto" (click)="changeEnabled()"></button>
+    </div>
+</div>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text" acceptLabel="Evet" rejectLabel="Hayır"></p-confirmDialog>
+

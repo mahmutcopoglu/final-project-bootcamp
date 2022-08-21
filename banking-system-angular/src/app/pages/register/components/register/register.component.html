@@ -1,0 +1,29 @@
+<p class="text-sm mb-5 text-center">*Hesabınızı oluşturmak için bilgileri eksiksiz doldurunuz.</p>
+<div class="grid formgrid p-fluid">
+    <div class="field mb-5 col-12">
+        <span class="p-float-label">
+            <input [ngClass]="submitted && username=='' ? 'ng-invalid ng-dirty' : ''" id="float-input-invalid" type="text" pInputText [(ngModel)]="username" />
+            <label for="float-input-invalid">Kullanıcı Adı</label>
+            <small *ngIf="(submitted && username=='')" id="username2-help" class="p-error block">Lütfen kullanıcı adı giriniz.</small>
+        </span>
+    </div>
+    <div class="field mb-5 col-12">
+        <span class="p-float-label">
+            <input [ngClass]="submitted && email=='' ? 'ng-invalid ng-dirty' : ''" id="float-input-invalid" type="email" pInputText  [(ngModel)]="email" />
+            <label for="float-input-invalid">Email</label>
+            <small *ngIf="(submitted && email=='')" id="username2-help" class="p-error block">Lütfen email giriniz.</small>
+        </span>
+    </div>
+    <div class="field mb-5 col-12">
+        <span class="p-float-label">
+            <input  [ngClass]="submitted && password=='' ? 'ng-invalid ng-dirty' : ''"  id="float-input-invalid" type="password" pInputText [(ngModel)]="password"/>
+            <label for="float-input-invalid">Şifre</label>
+            <small *ngIf="(submitted && password=='')" id="username2-help" class="p-error block">Lütfen şifre giriniz.
+            </small>
+        </span>
+    </div>
+
+    <div class="col-12 flex justify-content-end">
+        <button pButton pRipple label="Kayıt Ol" class="w-auto mt-3" (click)="saveUser()"></button>
+    </div>
+</div>

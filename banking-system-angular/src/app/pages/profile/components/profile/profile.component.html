@@ -1,0 +1,73 @@
+
+<div class="surface-card p-4 shadow-2 border-round">
+<div class="font-medium text-3xl text-900 mb-3">#{{profile.username}}</div>
+<div class="text-500 mb-5">Kullanıcı Bilgileriniz</div>
+<div class="grid grid-nogutter border-top-1 surface-border pt-2">
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Id</div>
+        <div class="text-900">{{profile.id}}</div>
+    </div>
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Kullanıcı Adı</div>
+        <div class="text-900">{{profile.username}}</div>
+    </div>
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Email</div>
+        <div class="text-900">{{profile.email}}</div>
+    </div>
+    <div class="col-12 md:col-6 p-3">
+        <div class="text-500 font-medium mb-2">Aktiflik</div>
+        <div *ngIf="profile.enabled" class="text-900"><p-tag styleClass="mr-2" icon="pi pi-check" severity="success" value="Aktif"></p-tag></div>
+        <div *ngIf="!profile.enabled" class="text-900"><p-tag icon="pi pi-times" severity="danger" value="Pasif"></p-tag></div>
+    </div>
+    <div class="col-12 md:col-12 p-3">
+    <p-table #dt [value]="profile.authorities" dataKey="id" styleClass="p-datatable-customers mb-5" [rowHover]="true"
+[rows]="10" responsiveLayout="scroll">
+<ng-template pTemplate="caption">
+    <div class="table-header">
+        Kullanıcı Yetkileri
+      
+    </div>
+</ng-template>
+
+<ng-template pTemplate="header">
+    <tr>
+        
+        <th>
+            <div class="flex justify-content-between align-items-center">
+             Yetki Tanım
+               
+            </div>
+        </th>
+       
+       
+    </tr>
+</ng-template>
+<ng-template pTemplate="body" let-authority>
+    <tr class="p-selectable-row">
+        
+        <td>
+            {{authority}}
+        </td>
+        
+        
+    </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+    <tr>
+        <td colspan="8">Kullanıcıya tanımlı yetki bulunmamaktadır.</td>
+    </tr>
+</ng-template>
+</p-table></div>
+    
+    
+   
+</div>
+</div>
+
+
+
+
+
+
+
